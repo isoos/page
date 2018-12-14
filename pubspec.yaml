@@ -1,0 +1,11 @@
+name: page
+description: Data structure to help paginating (e.g. cursor- or next-token-driven) API calls.
+version: 1.0.0
+homepage: https://github.com/isoos/page
+author: Istvan Soos <istvan.soos@gmail.com>
+
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+
+dev_dependencies:
+  test: ^1.0.0
