@@ -5,7 +5,9 @@ typedef Future _CloseFn();
 typedef FutureOr<List<R>> _MapFn<T, R>(List<T> item);
 
 class _CastPage<T, R> extends Object with PageMixin<R> implements Page<R> {
+  @override
   final List<R> items;
+  @override
   final bool isLast;
   final _NextPageFn<T> _nextPageFn;
   final _CloseFn _closeFn;
@@ -14,10 +16,11 @@ class _CastPage<T, R> extends Object with PageMixin<R> implements Page<R> {
   _CastPage(
       this.items, this.isLast, this._nextPageFn, this._closeFn, this._mapFn);
 
+  @override
   Future<Page<R>> next() async {
     if (isLast) return null;
     final next = await _nextPageFn();
-    return new _CastPage(
+    return _CastPage(
         await _mapFn(next.items), next.isLast, next.next, next.close, _mapFn);
   }
 
@@ -63,4 +66,3 @@ class _PageStreamIterator<T> implements StreamIterator<T> {
     return moveNext();
   }
 }
-

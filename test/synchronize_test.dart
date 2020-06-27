@@ -6,10 +6,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('synchronize', () async {
-    final source = new StreamIterator<int>(new Stream.fromIterable(
-        [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]));
-    final target = new StreamIterator<int>(
-        new Stream.fromIterable([3, 6, 9, 12, 15, 18, 21, 24, 27]));
+    final source = StreamIterator<int>(
+        Stream.fromIterable([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]));
+    final target = StreamIterator<int>(
+        Stream.fromIterable([3, 6, 9, 12, 15, 18, 21, 24, 27]));
 
     final onlySources = <int>[];
     final onlyTargets = <int>[];
@@ -24,6 +24,7 @@ void main() {
       },
       onlyTarget: (x) async {
         onlyTargets.add(x);
+        return false;
       },
       matched: (x, y) async {
         matched.add(x);

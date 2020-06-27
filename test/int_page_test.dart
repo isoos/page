@@ -4,10 +4,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('streaming', () async {
-    final page = new IntPage(0, new List.generate(10, (i) => i), false);
+    final page = IntPage(0, List.generate(10, (i) => i), false);
     final list = await page.asStream().toList();
     expect(list, hasLength(40));
-    expect(list, new List.generate(40, (i) => i));
+    expect(list, List.generate(40, (i) => i));
   });
 }
 
@@ -30,7 +30,7 @@ class IntPage extends Object with PageMixin<int> {
   @override
   Future<Page<int>> next() async {
     if (isLast) return null;
-    return new IntPage(pageNum + 1,
-        new List.generate(10, (i) => i + 1 + items.last), pageNum == 2);
+    return IntPage(pageNum + 1, List.generate(10, (i) => i + 1 + items.last),
+        pageNum == 2);
   }
 }

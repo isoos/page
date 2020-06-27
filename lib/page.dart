@@ -47,7 +47,7 @@ abstract class PageMixin<T> implements Page<T> {
   }
 
   @override
-  StreamIterator<T> asIterator() => new _PageStreamIterator(this);
+  StreamIterator<T> asIterator() => _PageStreamIterator(this);
 
   @override
   Future<Page<R>> map<R>(FutureOr<R> fn(T item)) {
@@ -62,6 +62,6 @@ abstract class PageMixin<T> implements Page<T> {
 
   @override
   Future<Page<R>> mapItems<R>(FutureOr<List<R>> fn(List<T> items)) async {
-    return new _CastPage(await fn(items), isLast, next, close, fn);
+    return _CastPage(await fn(items), isLast, next, close, fn);
   }
 }

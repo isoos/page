@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Using modern Dart.
+
 ## 1.1.0
 
 - `synchronizePages` to synchronize/diff two pages (assuming the keys are sorted in ascending order).

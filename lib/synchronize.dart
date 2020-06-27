@@ -110,7 +110,7 @@ Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
     }
     await moveTarget();
   }
-  return new PageSyncStat(
+  return PageSyncStat(
     onlySourceCount: onlySourceCount,
     onlyTargetCount: onlyTargetCount,
     matchingKeyCount: matchingKeyCount,
