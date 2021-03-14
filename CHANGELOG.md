@@ -1,6 +1,7 @@
 ## 1.2.0
 
 - Migrated to null-safety.
+- **BREAKING CHANGE**: Implementations should return `Page.empty()` when there is no next page.
 
 ## 1.1.1
 

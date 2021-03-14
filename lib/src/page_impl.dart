@@ -17,8 +17,8 @@ class _CastPage<T, R> extends Object with PageMixin<R> implements Page<R> {
       this.items, this.isLast, this._nextPageFn, this._closeFn, this._mapFn);
 
   @override
-  Future<Page<R>?> next() async {
-    if (isLast) return null;
+  Future<Page<R>> next() async {
+    if (isLast) return Page<R>.empty();
     final next = await (_nextPageFn() as FutureOr<Page<T>>);
     return _CastPage(
         await _mapFn(next.items), next.isLast, next.next, next.close, _mapFn);

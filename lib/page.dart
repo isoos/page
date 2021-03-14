@@ -13,7 +13,7 @@ abstract class Page<T> {
   bool get isLast;
 
   /// Returns the next page.
-  Future<Page<T>?> next();
+  Future<Page<T>> next();
 
   /// Closes the page and associated resources.
   Future<void> close();
@@ -80,7 +80,5 @@ class _EmptyPage<T> extends PageMixin<T> {
   final List<T> items = <T>[];
 
   @override
-  Future<Page<T>?> next() async {
-    return null;
-  }
+  Future<Page<T>> next() async => this;
 }

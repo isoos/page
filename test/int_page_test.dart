@@ -26,8 +26,8 @@ class IntPage extends Object with PageMixin<int> {
   Future<void> close() async {}
 
   @override
-  Future<Page<int>?> next() async {
-    if (isLast) return null;
+  Future<Page<int>> next() async {
+    if (isLast) return Page<int>.empty();
     return IntPage(pageNum + 1, List.generate(10, (i) => i + 1 + items.last),
         pageNum == 2);
   }
