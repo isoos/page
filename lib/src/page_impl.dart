@@ -1,8 +1,8 @@
 part of 'package:page/page.dart';
 
-typedef Future<Page<T>> _NextPageFn<T>();
-typedef Future _CloseFn();
-typedef FutureOr<List<R>> _MapFn<T, R>(List<T> item);
+typedef _NextPageFn<T> = Future<Page<T>> Function();
+typedef _CloseFn = Future Function();
+typedef _MapFn<T, R> = FutureOr<List<R>> Function(List<T> item);
 
 class _CastPage<T, R> extends Object with PageMixin<R> implements Page<R> {
   @override

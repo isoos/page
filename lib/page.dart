@@ -29,11 +29,11 @@ abstract class Page<T> {
   /// will be called on subsequent pages.
   ///
   /// The implementation will call the [fn] in sequence, eagerly.
-  Future<Page<R>> map<R>(FutureOr<R> fn(T item));
+  Future<Page<R>> map<R>(FutureOr<R> Function(T item) fn);
 
   /// Maps the type of the items to a different type. The same mapper function
   /// will be called on subsequent pages.
-  Future<Page<R>> mapItems<R>(FutureOr<List<R>> fn(List<T> items));
+  Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn);
 }
 
 /// [PageMixin] can be used as a mixin to make a class implement the [Page] interface.
@@ -50,10 +50,10 @@ abstract class PageMixin<T> implements Page<T> {
   StreamIterator<T> asIterator() => _PageStreamIterator(this);
 
   @override
-  Future<Page<R>> map<R>(FutureOr<R> fn(T item)) {
+  Future<Page<R>> map<R>(FutureOr<R> Function(T item) fn) {
     return mapItems((items) async {
       final list = <R>[];
-      for (T item in items) {
+      for (final item in items) {
         list.add(await fn(item));
       }
       return list;
@@ -61,7 +61,7 @@ abstract class PageMixin<T> implements Page<T> {
   }
 
   @override
-  Future<Page<R>> mapItems<R>(FutureOr<List<R>> fn(List<T> items)) async {
+  Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn) async {
     return _CastPage(await fn(items), isLast, next, close, fn);
   }
 }

@@ -28,10 +28,10 @@ class PageSyncStat {
 Future<PageSyncStat> synchronizePages<T, K extends Comparable<K>>(
   Page<T> source,
   Page<T> target,
-  K keyFn(T item), {
-  Future<bool> onlySource(T item),
-  Future<bool> onlyTarget(T item),
-  Future<bool> matched(T source, T target),
+  K Function(T item) keyFn, {
+  Future<bool> Function(T item) onlySource,
+  Future<bool> Function(T item) onlyTarget,
+  Future<bool> Function(T source, T target) matched,
 }) {
   return synchronizeStreamIterators(
     source.asIterator(),
@@ -48,19 +48,19 @@ Future<PageSyncStat> synchronizePages<T, K extends Comparable<K>>(
 Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
   StreamIterator<T> source,
   StreamIterator<T> target,
-  K keyFn(T item), {
-  Future<bool> onlySource(T item),
-  Future<bool> onlyTarget(T item),
-  Future<bool> matched(T source, T target),
+  K Function(T item) keyFn, {
+  Future<bool> Function(T item) onlySource,
+  Future<bool> Function(T item) onlyTarget,
+  Future<bool> Function(T source, T target) matched,
 }) async {
-  int onlySourceCount = 0;
-  int onlyTargetCount = 0;
-  int matchingKeyCount = 0;
-  int synchronizedCount = 0;
+  var onlySourceCount = 0;
+  var onlyTargetCount = 0;
+  var matchingKeyCount = 0;
+  var synchronizedCount = 0;
 
   T targetItem;
   K targetKey;
-  bool hasTarget = true;
+  var hasTarget = true;
   Future moveTarget() async {
     if (hasTarget) {
       if (await target.moveNext()) {

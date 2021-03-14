@@ -1,6 +1,6 @@
 import 'package:page/page.dart';
 
-main() async {
+Future<void> main() async {
   final Page page = await null; // There goes a call to the database.
 
   final iterator = page.asIterator();
