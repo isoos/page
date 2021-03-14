@@ -12,7 +12,7 @@ void main() {
         Stream.fromIterable([3, 6, 9, 12, 15, 18, 21, 24, 27]));
 
     final onlySources = <int>[];
-    final onlyTargets = <int>[];
+    final onlyTargets = <int?>[];
     final matched = <int>[];
     final stat = await synchronizeStreamIterators<int, num>(
       source,

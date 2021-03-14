@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Migrated to null-safety.
+
 ## 1.1.1
 
 - Using modern Dart.

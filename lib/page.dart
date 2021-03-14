@@ -13,10 +13,10 @@ abstract class Page<T> {
   bool get isLast;
 
   /// Returns the next page.
-  Future<Page<T>> next();
+  Future<Page<T>?> next();
 
   /// Closes the page and associated resources.
-  Future close();
+  Future<void> close();
 
   /// Transform the page to a stream of items.
   Stream<T> asStream();
@@ -34,6 +34,8 @@ abstract class Page<T> {
   /// Maps the type of the items to a different type. The same mapper function
   /// will be called on subsequent pages.
   Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn);
+
+  factory Page.empty() => _EmptyPage<T>();
 }
 
 /// [PageMixin] can be used as a mixin to make a class implement the [Page] interface.
@@ -42,7 +44,7 @@ abstract class PageMixin<T> implements Page<T> {
   Stream<T> asStream() async* {
     final iterator = asIterator();
     while (await iterator.moveNext()) {
-      yield iterator.current;
+      yield iterator.current!;
     }
   }
 
@@ -63,5 +65,22 @@ abstract class PageMixin<T> implements Page<T> {
   @override
   Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn) async {
     return _CastPage(await fn(items), isLast, next, close, fn);
+  }
+}
+
+class _EmptyPage<T> extends PageMixin<T> {
+  @override
+  Future<void> close() async {
+  }
+
+  @override
+  final isLast = true;
+
+  @override
+  final List<T> items = <T>[];
+
+  @override
+  Future<Page<T>?> next() async {
+    return null;
   }
 }
