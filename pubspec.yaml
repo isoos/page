@@ -1,6 +1,6 @@
 name: page
 description: Data structure to help paginating (e.g. cursor- or next-token-driven) API calls.
-version: 1.2.0
+version: 1.2.1
 homepage: https://github.com/isoos/page
 
 environment:
