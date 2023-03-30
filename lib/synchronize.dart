@@ -65,7 +65,7 @@ Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
     if (hasTarget) {
       if (await target.moveNext()) {
         targetItem = target.current;
-        targetKey = keyFn(targetItem!);
+        targetKey = keyFn(targetItem as T);
       } else {
         targetItem = null;
         targetKey = null;
@@ -80,7 +80,7 @@ Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
     final sourceItem = source.current;
     final sourceKey = keyFn(sourceItem);
     while (hasTarget && sourceKey.compareTo(targetKey!) > 0) {
-      final s = onlyTarget == null ? null : await onlyTarget(targetItem!);
+      final s = onlyTarget == null ? null : await onlyTarget(targetItem as T);
       onlyTargetCount++;
       if (s == true) {
         synchronizedCount++;
@@ -88,7 +88,8 @@ Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
       await moveTarget();
     }
     if (hasTarget && sourceKey.compareTo(targetKey!) == 0) {
-      final s = matched == null ? null : await matched(sourceItem, targetItem!);
+      final s =
+          matched == null ? null : await matched(sourceItem, targetItem as T);
       matchingKeyCount++;
       if (s == true) {
         synchronizedCount++;
@@ -103,7 +104,7 @@ Future<PageSyncStat> synchronizeStreamIterators<T, K extends Comparable<K>>(
     }
   }
   while (hasTarget) {
-    final s = onlyTarget == null ? null : await onlyTarget(targetItem!);
+    final s = onlyTarget == null ? null : await onlyTarget(targetItem as T);
     onlyTargetCount++;
     if (s == true) {
       synchronizedCount++;

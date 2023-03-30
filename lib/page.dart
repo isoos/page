@@ -63,15 +63,15 @@ abstract class PageMixin<T> implements Page<T> {
   }
 
   @override
-  Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn) async {
+  Future<Page<R>> mapItems<R>(
+      FutureOr<List<R>> Function(List<T> items) fn) async {
     return _CastPage(await fn(items), isLast, next, close, fn);
   }
 }
 
 class _EmptyPage<T> extends PageMixin<T> {
   @override
-  Future<void> close() async {
-  }
+  Future<void> close() async {}
 
   @override
   final isLast = true;

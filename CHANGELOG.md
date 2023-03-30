@@ -1,3 +1,7 @@
+## 1.2.1
+
+- Updated lints and formatting.
+
 ## 1.2.0
 
 - Migrated to null-safety.
