@@ -39,7 +39,7 @@ abstract class Page<T> {
 }
 
 /// [PageMixin] can be used as a mixin to make a class implement the [Page] interface.
-abstract class PageMixin<T> implements Page<T> {
+mixin PageMixin<T> implements Page<T> {
   @override
   Stream<T> asStream() async* {
     final iterator = asIterator();
@@ -69,7 +69,7 @@ abstract class PageMixin<T> implements Page<T> {
   }
 }
 
-class _EmptyPage<T> extends PageMixin<T> {
+class _EmptyPage<T> extends Object with PageMixin<T> {
   @override
   Future<void> close() async {}
 

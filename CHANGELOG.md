@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Updated lints and language rules.
+
 ## 1.2.1
 
 - Updated lints and formatting.
