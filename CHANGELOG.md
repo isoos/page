@@ -1,3 +1,7 @@
+## 1.3.0
+
+- Support simpler (last) page construction with `Page.from`.
+
 ## 1.2.2
 
 - Updated lints and language rules.

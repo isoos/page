@@ -1,7 +1,7 @@
 name: page
 description: Data structure to help paginating (e.g. cursor- or next-token-driven) API calls.
-version: 1.2.2
-homepage: https://github.com/isoos/page
+version: 1.3.0
+repository: https://github.com/isoos/page
 topics:
   - pagination
   - cursor

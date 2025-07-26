@@ -36,6 +36,8 @@ abstract class Page<T> {
   Future<Page<R>> mapItems<R>(FutureOr<List<R>> Function(List<T> items) fn);
 
   factory Page.empty() => _EmptyPage<T>();
+  factory Page.from(Iterable<T> items) =>
+      _Page(items is List<T> ? items : items.toList());
 }
 
 /// [PageMixin] can be used as a mixin to make a class implement the [Page] interface.
@@ -81,4 +83,20 @@ class _EmptyPage<T> extends Object with PageMixin<T> {
 
   @override
   Future<Page<T>> next() async => this;
+}
+
+class _Page<T> extends Object with PageMixin<T> {
+  @override
+  final List<T> items;
+
+  _Page(this.items);
+
+  @override
+  Future<void> close() async {}
+
+  @override
+  final isLast = true;
+
+  @override
+  Future<Page<T>> next() async => Page<T>.empty();
 }
